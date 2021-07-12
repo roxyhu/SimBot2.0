@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<script type="text/javascript">
+
+  var socket = io.connect();
+  let user_un_user = []
+  let user_already_use = []
+  let user_already_use_compare = []
+  let useing_key = 0;
+  let user_amount = 0;
+  socket.on('uid', function (data) {
+    $('#user').html('')
+    // setTimeout(function () {
+    //   $('#user').append(`<option>${data.uid}</option>`);
+    // }, 5)
+  });
+  socket.on('bot_list', function (data) {
+    user_un_user = data.bot_list
+    user_amount = data.user_amount
+  })
+  socket.on('bot_already_use', function (data) {
+    user_already_use = data.bot_already_use
+    // console.log(user_already_use)
+  })
+  $(window).keyup(function (event) {
+    if (event.keyCode == 13) {
+      $("#button1").click();
+    }
+  });
+
+
+  function uidselect() {
+    useing_key = 0
+    //跳轉網頁以及給予權限
+    user_already_use_compare = document.getElementById('user').value
+    if (user_already_use_compare == 'sudo clear') {
+      socket.emit('user_reset', {
+        'user_reset': useing_key
+      });
+      useing_key += 3
+    }
+    for (i = 0; i <= user_already_use.length; i++) {
+      if (user_already_use_compare == user_already_use[i]) {
+        useing_key += 1
+      }
+    }
+    for (i = 0; i <= user_un_user.length; i++) {
+      if (user_already_use_compare == user_un_user[i]) {
+        useing_key += 2
+      }
+    }
+    if (useing_key == 1) {
+      alert('BOT中在使用中...');
+    }
+    else if (useing_key == 2) {
+      let domain = Math.random();
+      socket.emit('domain', {
+        'domain': domain
+      });
+      socket.emit('uidstatus_use', {
+        'uidstatus_use': document.getElementById("user").value
+      });
+      window.location.href = 'http://127.0.0.1:3000/master.html?' + domain;
+      // window.location.href = 'http://127.0.0.1:3000/master.html'
+    }
+    else if (useing_key == 0) {
+      alert('請輸入正確的BOT號...');
+    }
+    else {
+      alert('清除成功...');
+    }
+
+  }
+  function myFunction() {
+    socket.emit('client', {
+      'uid': "AAA"
+    });
+  }
+
+
+  //表格製作
+  setInterval(function () {
+    $("#bot_list").html("")
+    // $("#bot_list_using").html("")
+    let test1 = []
+    if (user_un_user.length > user_already_use.length) {
+      for (i = 0; i < user_un_user.length; i++) {
+        // $("#bot_list").append(`<tr><td>${user_un_user[i]}</td></tr>`);
+        test1[i] = `<td>${user_un_user[i]}</td>`;
+        test1[i] = test1[i].replace(/undefined/i, '')
+      }
+      for (j = 0; j < user_un_user.length; j++) {
+        // $("#bot_list_using").append(`<tr><td>${user_already_use[j]}</td></tr>`);
+        test1[j] += `<td>${user_already_use[j]}</td>`;
+        test1[j] = test1[j].replace(/undefined/i, '')
+      }
+      for (k = 0; k < user_un_user.length; k++) {
+        $("#bot_list").append(`<tr>${test1[k]}</tr>`);
+      }
+    }
+    else {
+      for (i = 0; i < user_already_use.length; i++) {
+        // $("#bot_list").append(`<tr><td>${user_un_user[i]}</td></tr>`);
+        test1[i] = `<td>${user_un_user[i]}</td>`;
+        test1[i] = test1[i].replace(/undefined/i, '')
+      }
+      for (j = 0; j < user_already_use.length; j++) {
+        // $("#bot_list_using").append(`<tr><td>${user_already_use[j]}</td></tr>`);
+        test1[j] += `<td>${user_already_use[j]}</td>`;
+        test1[j] = test1[j].replace(/undefined/i, '')
+      }
+      for (k = 0; k < user_already_use.length; k++) {
+        $("#bot_list").append(`<tr>${test1[k]}</tr>`);
+      }
+    }
+    // console.log(test1)
+  }, 250)
+
+
+
+</script>
+<style>
+  table,
+  td {
+    border: 1px solid #333;
+  }
+
+  thead,
+  tfoot {
+    background-color: #333;
+    color: #fff;
+  }
+</style>
+
+<body onbeforeunload="myFunction()">
+
+  <p>Please enter the number</p>>
+  <input id="user"></input>
+  <button id="button1" onclick=uidselect() onkeypress="handle(event)">enter</button>
+  <br>
+  <br>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="1">Available number</th>
+        <th colspan="1">Occupied number</th>
+      </tr>
+    </thead>
+
+    <tbody id=bot_list></tbody>
+    <!-- <tbody id=bot_list_using></tbody> -->
+  </table>
+
+</body>
+
+</html>

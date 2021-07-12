@@ -1,0 +1,198 @@
+body{
+    margin: 0; 
+    padding: 0;
+    height: 100%;
+    width:100%;
+    border:none;
+}
+
+.map{
+    position:absolute;
+    max-height:80vh;
+    min-height:80vh;
+    max-width: 75%;
+    min-width: 75%;
+    z-index:1;
+}
+.map2{
+  position:absolute;
+  height:40vh;
+  width: 25%;
+  z-index:1;
+}
+.mapmove{
+    position:absolute;
+    top:64vh;
+    left:8vh;
+    width:6.5%;
+    height:10%;
+    z-index:2;
+}
+.mapmovetalk{
+    position:absolute;
+    top:2%;
+    right:9%;
+    max-height:3vh;
+    min-height:3vh;
+    max-width:15%;
+    min-width:15%;
+}
+.mapmovedisplay{
+    position:absolute;
+    top:10%;
+    right:9%;
+    max-height:3vh;
+    min-height:3vh;
+    max-width:15%;
+    min-width:15%;
+    font-family:fantasy;
+    font-size:3vh;   
+}
+.mapmoverecord{
+    position:absolute;
+    top:20%;
+    right:9%;
+    max-height:5vh;
+    min-height:5vh;
+    max-width:15%;
+    min-width:15%;
+    font-family:fantasy;
+    font-size:3vh;  
+}
+.talkroom{
+    position:absolute;
+    top:30%;
+    right:4%;
+    max-height:40vh;
+    min-height:40vh;
+    max-width:20%;
+    min-width:20%;
+    font-family:fantasy;
+    font-size:2vh;
+    overflow:auto;  
+}
+.locationselect {
+    position:absolute;
+    top:70%;
+    right:8%;
+    max-height:15%;
+    min-height:15%;
+    max-width:15%;
+    min-width:15%;
+   
+}
+.locationselectbutton{
+    font-size:2vh;
+}
+.yun{
+    color: red;
+}
+.bot{
+    color:blue;
+}
+/*----------------------------------------------2020/12/13 kady--*/
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+     box-sizing: border-box;
+}
+/*---------這如果布景本身沒有在加就好 end---------*/
+
+.bob-container{
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.bob-row{
+  margin-right: -15px;
+  margin-left: -15px;
+  
+}
+
+.bob-row:before,.bob-row:after{
+  display: table;
+  content: " ";  
+}
+
+.bob-row:after{
+  clear: both;
+}
+
+/*2個並排 不管在任何尺寸都會2個並排*/
+.bob-2item{
+  width:50%;
+}
+
+/*3個並排 在767px以下會垂直排列*/
+.bob-3item{
+  width: 100%;
+  
+}
+/*4個並排 在767px以下會2個排列*/
+.bob-4item{
+  width:50%;
+}
+
+.bob-2item,.bob-3item,.bob-4item{
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  float:left;
+}
+
+.bob-2item img,.bob-3item img,.bob-4item img{
+  width:100%;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .bob-container {
+    /* width: 750px; */
+    width: 100%;
+  }
+  .bob-3item{
+    width: 33.33333333%;
+  }
+  .bob-4item{
+    width:25%;
+  }
+}
+/*對話框網頁設計*/
+#parent{
+  display: flex;
+  border: 1px solid #fff;
+  height: 100vh;
+  width: 100%;
+}
+#LeftCol{
+  /* flex-grow: 1; */
+  width: 50%;
+  height: 85vh;
+  border-right: 1px solid #000;
+  resize: horizontal;
+  overflow: auto;
+}
+#RightCol{
+  /* flex-grow: 1; */
+  width: 50%;
+  height: 85vh;
+  border-left: 1px solid #fff;  
+  
+}
+/* #RightCol_01{
+  height:30vh;
+  flex-grow: 2;
+  border-bottom: 1px solid #000;  
+}
+#RightCol_02{
+  height:30vh;
+  flex-grow: 2;
+  border-bottom: 1px solid #000;  
+}
+#RightCol_03{
+  height:30vh;
+  flex-grow: 2;
+  border-bottom: 1px solid #fff; 
+} */
